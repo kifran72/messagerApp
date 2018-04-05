@@ -1,0 +1,122 @@
+canvas {
+    z-index: 0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+
+p {
+    position: absolute;
+    z-index: 1;
+}
+
+.info {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+    padding: 5px 15px;
+    color: #eee;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.title-page {
+    text-align: center;
+    position: relative;
+    color: white;
+}
+
+#welcome {
+    font-size: 35px;
+    margin-top: 5%;
+    text-align: center;
+    position: absolute;
+    color: white;
+    user-select: none;
+}
+
+#notif {
+    font-size: 2em;
+}
+
+
+
+.wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+
+.numbers-wrap {
+    height: 180px;
+    display: inline-block;
+    filter: url("#goo");
+}
+
+.colon {
+    width: 20px;
+    float: left;
+    height: 100%;
+    position: relative;
+    margin: 0 15px;
+}
+
+.colon .colon-dot-1 {
+    width: 30px;
+    height: 30px;
+    top: 28.571428572%;
+}
+
+.colon .colon-dot-2 {
+    width: 30px;
+    height: 30px;
+    top: 57.142857144%;
+}
+
+.box {
+    position: relative;
+    width: 80px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    float: left;
+    margin: 0 15px;
+}
+
+.dot {
+    left: 20%;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(173, 18, 6);
+}
+
+#pageMessages {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 30%;
+}
+
+.alert {
+    position: relative;
+}
+
+.alert .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1em;
+}
+
+.alert .fa {
+    margin-right: .3em;
+}
