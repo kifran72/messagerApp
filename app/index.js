@@ -1,5 +1,8 @@
 let express = require('express');
 let app = express();
+let connectedUsers = {};
+let server = require('http').createServer(app);
+let io = require('socket.io')(server);
 let twig = require('twig');
 let bodyParser = require('body-parser');
 let session = require('express-session');
@@ -9,10 +12,15 @@ let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "api"
+    database: "messagerapp"
 });
 
-app.set('views', 'public');
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+app.set('views', 'views');
 app.set('view engine', 'html');
 app.engine('html', twig.__express);
 app.set('twig options', {
@@ -43,11 +51,14 @@ app.use(session({
 
 
 // ROUTES
-require('./routes/index').init(app, session, con, {});
+require('./routes/index').init(app, session, con, io, server, connectedUsers);
 
 // ALL OTHER ROUTES REDIRECT TO '/'
 app.get('*', function (req, res) {
     res.redirect('/');
 });
 
+
+
 module.exports = app;
+
