@@ -17,9 +17,7 @@
         "express-session": "^1.15.6",
         "moment": "^2.22.0",
         "mysql": "^2.15.0",
-        "realtime": "0.0.1",
         "socket.io": "^2.1.0",
-        "twig": "^1.10.5",
-        "websocket": "^1.0.25"
+        "twig": "^1.10.5"
     }
 }
