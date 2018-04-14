@@ -53,13 +53,19 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         if (!req.session.connected) return res.render('users/login', {
             message: 'Bienvenue'
         });
+
+        io.sockets.emit('remove user', {
+            username: req.session.username,
+            id_user: req.session.id_user
+        });
+
         req.session.destroy(function (err) {
             if (err) throw err;
             return res.render('users/login', {
                 message: 'Bienvenue'
             });
 
-        })
+        });
     });
 
 
@@ -110,32 +116,38 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     })
 
     app.get('/worldchat', function (req, res) {
-        // if (!req.session.connected) return res.redirect('/');
-
+        if (!req.session.connected) return res.redirect('/');
         return res.render('worldChat', {
-            message: "hello"
+            message: "hello",
+            username: req.session.username,
+            id_user: req.session.id_user
+
         });
 
     });
 
     app.get('/worldchat/getMessages', function (req, res) {
-
         let search = 'SELECT * FROM messages m, users u WHERE m.id_user=u.id_user LIMIT 30';
+
+        io.sockets.emit('add user', {
+            username: req.session.username,
+            id_user: req.session.id_user
+        });
+
         con.query(search, function (err, result, fields) {
             if (err) throw err;
             if (result.length != 0) {
-
                 let messages = [];
                 let date;
 
                 for (let i = 0; i < result.length; i++) {
 
                     date = moment(result[i].created_at).format('D MMM YY HH:mm');
-
                     messages.push({
                         username: result[i].username,
                         message: result[i].message,
-                        created_at: date
+                        created_at: date,
+                        id_user: result[i].id_user
                     });
                 }
 
@@ -161,7 +173,8 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
             io.sockets.emit('echo', {
                 message: message,
                 username: req.session.username,
-                created_at: moment().format('D MMM YY HH:mm')
+                created_at: moment().format('D MMM YY HH:mm'),
+                id_user: id_user
             });
 
             return res.send({

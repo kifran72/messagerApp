@@ -1,16 +1,5 @@
 // initialisation de angular
-let app = angular.module("myApp", ['chat']);
-
-app.constant('config', {
-    rltm: {
-        service: "pubnub",
-        config: {
-            "publishKey": "pub-c-5b6e9b5d-efac-4a99-965f-694e482102b6",
-            "subscribeKey": "sub-c-7d770952-3dc9-11e8-ab9b-2eb7c2998ea5",
-            "Secret Key": "sec-c-ODEwNmI1YWUtOWNiNS00ZDFjLWJkYWQtMWFhY2Q1ZGQwZTA1"
-        }
-    }
-});
+let app = angular.module("myApp", []);
 
 app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
@@ -34,11 +23,3 @@ app.directive('myEnter', function () {
         });
     };
 });
-
-
-
-
-
-    // User id: kifran72
-    // password: oFRt0ZoDg4
-

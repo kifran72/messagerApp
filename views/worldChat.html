@@ -28,17 +28,20 @@
                 </div>
                 <h1 class="worldchat">Worldchat</h1>
                 <hr/>
-                <div class="listview lv-user m-t-20">
-                    <div class="lv-item media active">
-                        <div class="lv-avatar pull-left">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkIGnyx2NN1I8V67WtFKGgd8spOYOoYvMBvGmd1FrQluCQaP1Rg" alt="">
-                        </div>
-                        <div class="media-body">
-                            <div class="lv-title">qsdqsdq</div>
-                            <div class="lv-small"> Connected </div>
+                <div ng-repeat="user in users" ng-cloak>
+                    <div class="listview lv-user m-t-20">
+                        <div class="lv-item media active">
+                            <div class="lv-avatar pull-left">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkIGnyx2NN1I8V67WtFKGgd8spOYOoYvMBvGmd1FrQluCQaP1Rg" alt="">
+                            </div>
+
+                            <div class="media-body">
+                                <div class="lv-title">{[{user.username}]}</div>
+                                <div class="lv-small"> Connected </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="ms-body">
@@ -51,11 +54,11 @@
                                 <div class="line bottom"></div>
                             </div>
                         </div>
-                        <div class="lvh-label hidden-xs">
-                            <div class="lv-avatar pull-left">
+                        <div class="lvh-label hidden-xs col-md-6">
+                            <!-- <div class="lv-avatar pull-left">
                                 <img src="./images/bhai.jpg" alt="">
-                            </div>
-                            <span class="c-black">{[{ username }]}
+                            </div> -->
+                            <span class="c-black userinfo" id="{{ id_user }}">{{username}}
                                 <span style=" margin-left:8px; position:absolute; margin-top:12px;width: 8px;height: 8px;line-height: 8px;    border-radius: 50%; background-color:#80d3ab;"></span>
                             </span>
                         </div>
@@ -96,81 +99,48 @@
                         </ul>
                     </div>
                     <div class="lv-body" id="ms-scrollbar" style="overflow:scroll; overflow-x: hidden; height:520px;">
-                        <div class="lv-item media" ng-repeat="msg in messages" ng-cloak>
-                            <div class="lv-avatar pull-left">
-                                <img src="./images/bhai.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="ms-item">
-                                    <span class="glyphicon glyphicon-triangle-left" style="color:#000000;"></span>
-                                    {[{ msg.username + ': ' + msg.message }]}
+
+                        <div ng-repeat="msg in messages" ng-cloak>
+                            <div ng-if="!msg.myself">
+                                <div class="lv-item media">
+                                    <div class="lv-avatar pull-left">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAkIGnyx2NN1I8V67WtFKGgd8spOYOoYvMBvGmd1FrQluCQaP1Rg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="ms-item">
+                                            <span class="glyphicon glyphicon-triangle-left"></span>
+                                            {[{ msg.username + ': ' + msg.message }]}
+                                        </div>
+                                        <small class="ms-date">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{ msg.created_at }]}</small>
+                                    </div>
                                 </div>
-                                <small class="ms-date">
-                                    <span class="glyphicon glyphicon-time"></span>&nbsp; 05/10/2015 at 09:00</small>
+                            </div>
+
+                            <div ng-if="msg.myself">
+                                <div class="lv-item media right">
+                                    <div class="lv-avatar pull-right">
+                                        <img src="./images/avatar.jpg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="ms-item">
+                                            <span class="glyphicon glyphicon-triangle-left"></span>
+                                            {[{ msg.username + ': ' + msg.message }]}
+                                        </div>
+                                        <small class="ms-date">
+                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{ msg.created_at }]}</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="lv-item media right">
-                            <div class="lv-avatar pull-right">
-                                <img src="./images/avatar.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="ms-item">
-                                    We started this site with clear mission that we want to deliver complete details knowledge of Programming to our audience.
-                                    We are sharing this knowledge in all areas that you can see in our site.
-                                </div>
-                                <small class="ms-date">
-                                    <span class="glyphicon glyphicon-time"></span>&nbsp; 05/10/2015 at 09:30</small>
-                            </div>
-                        </div>
-                        <div class="lv-item media">
-                            <div class="lv-avatar pull-left">
-                                <img src="./images/bhai.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="ms-item">
-                                    It's gives the power to synthesis anything anywhere you want to. Its the ultimate tool to solve any problem. And we help
-                                    you excel in that by working with you.
-                                </div>
-                                <small class="ms-date">
-                                    <span class="glyphicon glyphicon-time"></span>&nbsp; 20/02/2015 at 09:33</small>
-                            </div>
-                        </div>
-                        <div class="lv-item media right">
-                            <div class="lv-avatar pull-right">
-                                <img src="./images/avatar.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="ms-item">
-                                    The basic essence of life is to learn, explore and synthesis. We provide you with the tools to make your dreams come true.Our
-                                    website is totally for free and available 24/7 and does not consume your data packs and
-                                    works like a charm on the supersonic lovely internet.
-                                </div>
-                                <small class="ms-date">
-                                    <span class="glyphicon glyphicon-time"></span>&nbsp; 05/10/2015 at 10:10</small>
-                            </div>
-                        </div>
-                        <div class="lv-item media">
-                            <div class="lv-avatar pull-left">
-                                <img src="./images/bhai.jpg" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="ms-item">
-                                    Acadnote a world class website is processing surveys for every student who wants to do something new and different in the
-                                    field of academics. so it is a right place for every student to share their opinions
-                                    about their present academics so this website can provide every single student requirements
-                                    and it is possible for us to do if every student explains about their academics requirements.
-                                    Last but not the least tell the needs and collect your study materials which we will
-                                    provide to you.
-                                </div>
-                                <small class="ms-date">
-                                    <span class="glyphicon glyphicon-time"></span>&nbsp; 05/10/2015 at 10:24</small>
-                            </div>
-                        </div>
+
+
+
                     </div>
                     <div class="clearfix"></div>
                     <div class="lv-footer ms-reply">
-                        <textarea rows="10" placeholder="Write messages..."></textarea>
-                        <button class="">
+                        <textarea rows="10" placeholder="Write messages..." my-enter="sendMsg();" ng-model="message"></textarea>
+                        <button class="" ng-click="sendMsg();">
                             <span class="glyphicon glyphicon-send"></span>
                         </button>
                     </div>
