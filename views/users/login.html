@@ -1,14 +1,14 @@
 {% include 'templates/header.html' %}
 
 
-<div class="container" ng-controller="loginUser">
+<div class="container login" ng-controller="loginUser">
     {{message}}
-    <div class="form-group">
+    <div class="form-group loginGroup">
         <label for="exampleInputEmail1">Identifiant</label>
         <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="Entrer votre email ou speudo"
             ng-model="username" my-enter="loginUser()">
     </div>
-    <div class="form-group">
+    <div class="form-group loginGroup">
         <label for="pass">Mot de passe</label>
         <input type="password" class="form-control" id="pass" name="password" placeholder="Entrer votre mot de passe" ng-model="password"
             my-enter="loginUser()">

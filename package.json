@@ -15,8 +15,11 @@
         "cookie-parser": "^1.4.3",
         "express": "^4.16.3",
         "express-session": "^1.15.6",
+        "moment": "^2.22.0",
         "mysql": "^2.15.0",
+        "realtime": "0.0.1",
         "socket.io": "^2.1.0",
-        "twig": "^1.10.5"
+        "twig": "^1.10.5",
+        "websocket": "^1.0.25"
     }
 }

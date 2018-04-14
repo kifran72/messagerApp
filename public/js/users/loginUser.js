@@ -1,5 +1,3 @@
-// initialisation de angular
-let app = angular.module("myApp", []);
 
 app.controller("loginUser", function ($scope, $http, $window) {
     $scope.username, $scope.password;
@@ -27,24 +25,3 @@ app.controller("loginUser", function ($scope, $http, $window) {
 
     }
 });
-
-app.directive('myEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if (event.which === 13) {
-                scope.$apply(function () {
-                    scope.$eval(attrs.myEnter);
-                });
-
-                event.preventDefault();
-            }
-        });
-    };
-});
-
-
-
-
-    // User id: kifran72
-    // password: oFRt0ZoDg4
-

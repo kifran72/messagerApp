@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 09 avr. 2018 à 21:19
+-- Généré le :  sam. 14 avr. 2018 à 11:04
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -33,11 +33,24 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `id_message` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `message` text NOT NULL,
-  `username` varchar(30) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id_message`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `messages`
+--
+
+INSERT INTO `messages` (`id_message`, `id_user`, `message`, `created_at`) VALUES
+(1, 1, 'Coucou ça va ?', '2018-04-13 20:13:35'),
+(2, 1, 'qsdfqsd', '2018-04-13 22:06:11'),
+(3, 1, 'lolilol', '2018-04-13 22:10:16'),
+(4, 1, 'lol', '2018-04-13 22:11:48'),
+(5, 4, 'Salut !', '2018-04-13 22:11:52'),
+(6, 6, 'hey boys', '2018-04-13 22:14:45'),
+(7, 1, 'lol', '2018-04-13 22:16:46'),
+(8, 6, 'qsdqsd', '2018-04-13 22:16:49');
 
 -- --------------------------------------------------------
 
@@ -54,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `account_type` int(11) NOT NULL,
   `img_url` varchar(50) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
@@ -63,7 +76,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id_user`, `username`, `mail_users`, `password`, `account_type`, `img_url`) VALUES
 (1, 'kifran', 'rizzon.charles@gmail.com', 'just4service', 0, '0'),
 (4, 'sdfsdf', 'sdfsd', 'aze', 0, '0'),
-(5, 'aze', 'aze', 'aze', 0, '0');
+(5, 'aze', 'aze', 'aze', 0, '0'),
+(6, 'dianophe', 'rizzon.charles@gmail.com', 'toor', 0, '0');
 
 --
 -- Contraintes pour les tables déchargées

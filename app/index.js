@@ -1,8 +1,9 @@
 let express = require('express');
 let app = express();
 let connectedUsers = {};
-let server = require('http').createServer(app);
-let io = require('socket.io')(server);
+let moment = require('moment');
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
 let twig = require('twig');
 let bodyParser = require('body-parser');
 let session = require('express-session');
@@ -17,8 +18,12 @@ let con = mysql.createConnection({
 
 con.connect(function (err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("BDD Connected!");
 });
+require('../config/socket')(io);
+
+// Moment FR
+require('moment/locale/fr.js');
 
 app.set('views', 'views');
 app.set('view engine', 'html');
@@ -46,12 +51,14 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    cookie: {
+        maxAge: 30 * 60000
+    }
 }))
 
 
 // ROUTES
-require('./routes/index').init(app, session, con, io, server, connectedUsers);
+require('./routes/index').init(app, session, con, io, http, connectedUsers, moment);
 
 // ALL OTHER ROUTES REDIRECT TO '/'
 app.get('*', function (req, res) {
@@ -60,5 +67,5 @@ app.get('*', function (req, res) {
 
 
 
-module.exports = app;
+module.exports = http;
 

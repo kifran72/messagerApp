@@ -30,12 +30,3 @@ app.controller("signup", function ($scope, $http, $window) {
     }
 
 });
-
-app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-}]);
-
-app.config(function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-});
-

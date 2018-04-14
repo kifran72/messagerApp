@@ -1,7 +1,7 @@
 /**
  * @param  {Object} app
  */
-function initIndex(app, session, con, io, server, connectedUsers) {
+function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
     app.get('/', function (req, res) {
         if (!req.session.connected) return res.render('users/login', {
@@ -32,8 +32,10 @@ function initIndex(app, session, con, io, server, connectedUsers) {
             if (err) throw err;
             if (result.length != 0) {
                 req.session.connected = true;
+                req.session.id_user = result[0].id_user;
                 req.session.username = username;
                 req.session.account_type = result[0].role;
+
 
                 return res.send({
                     username: username,
@@ -108,169 +110,66 @@ function initIndex(app, session, con, io, server, connectedUsers) {
     })
 
     app.get('/worldchat', function (req, res) {
-        res.render('worldChat', {
-            message: 'worldchat'
+        // if (!req.session.connected) return res.redirect('/');
+
+        return res.render('worldChat', {
+            message: "hello"
         });
+
     });
 
-    app.post('/worldchat', function (req, res) {
+    app.get('/worldchat/getMessages', function (req, res) {
 
-        // Chatroom
-        let numUsers = 0;
-        let usersConnected = [];
+        let search = 'SELECT * FROM messages m, users u WHERE m.id_user=u.id_user LIMIT 30';
+        con.query(search, function (err, result, fields) {
+            if (err) throw err;
+            if (result.length != 0) {
 
-        io.on('connection', function (socket) {
-            let addedUser = false;
-            let getLastMsg = function () {
-                con.query('SELECT message, username FROM messages LIMIT 30',
-                    function (err, rows) {
-                        if (err) {
-                            socket.emit('error', err.code);
-                            return true;
-                        }
-                        for (k in rows) {
-                            let row = rows[k];
-                            message = {
-                                message: row.message,
-                                username: row.username,
-                                user_id: row.user_id
-                            }
-                            socket.emit('new message', message);
-                        }
-                    }
-                )
+                let messages = [];
+                let date;
+
+                for (let i = 0; i < result.length; i++) {
+
+                    date = moment(result[i].created_at).format('D MMM YY HH:mm');
+
+                    messages.push({
+                        username: result[i].username,
+                        message: result[i].message,
+                        created_at: date
+                    });
+                }
+
+                return res.send({ messages });
+            } else {
+                return res.send({});
             }
+        });
 
-            socket.on('add private room', function (room) {
-                //socket.join(room);
-                console.log(room);
+
+    });
+
+    app.post('/worldchat/sendMessage', function (req, res) {
+        let message = req.body.message;
+        let id_user = req.session.id_user;
+
+        console.log(id_user);
+
+        let search = 'INSERT INTO messages(id_user, message, created_at) VALUES(?,?,NOW())';
+        con.query(search, [id_user, message], function (err, result, fields) {
+            if (err) throw err;
+
+            io.sockets.emit('echo', {
+                message: message,
+                username: req.session.username,
+                created_at: moment().format('D MMM YY HH:mm')
             });
 
-            // when the client emits 'new message', this listens and executes
-            socket.on('new message', function (data) {
-
-                if (data.startsWith('/pv')) {
-                    const args = data.split(/\s+/g);
-                    let prefix = args[0];
-                    let username = args[1];
-                    let message = args.slice(2).join(" ");
-
-                    console.log(message);
-
-                    if (username == socket.username) {
-                        socket.emit('error_msg', 'Vous ne pouvez pas vous envoyer un message !');
-                    } else if (connectedUsers[username]) {
-
-                        socket.broadcast.to(connectedUsers[username].id).emit('new message', {
-                            username: socket.username,
-                            message: message,
-                            id_user: socket.id,
-                            from: connectedUsers[username].username,
-                            command: true
-                        });
-                    } else {
-                        socket.emit('error_msg', 'Mauvais utilisateur !');
-                    }
-                } else {
-                    let $created_at = Date.now();
-
-                    //console.log(message);
-
-                    con.query('INSERT INTO messages SET id_user = ?, message = ?, username = ?, created_at = ?', [
-                        socket.id,
-                        data,
-                        socket.username,
-                        new Date($created_at)
-                    ], function (err) {
-                        if (err) {
-                            socket.emit('error', err);
-                        }
-                        // we tell the client to execute 'new message'
-                        socket.broadcast.emit('new message', {
-                            username: socket.username,
-                            message: data,
-                            id_user: socket.id
-                        });
-                    })
-                }
+            return res.send({
+                success: true,
+                content: message
             });
-
-            // when the client emits 'add user', this listens and executes
-            socket.on('add user', function (username) {
-                if (addedUser) return;
-
-                // we store the username in the socket session for this client
-                socket.username = username;
-                ++numUsers;
-                addedUser = true;
-                socket.emit('login', {
-                    numUsers: numUsers
-                });
-
-                connectedUsers[username] = socket;
-
-                getLastMsg();
-                io.sockets.emit('clear user list');
-                for (k in connectedUsers) {
-                    let row = connectedUsers[k];
-
-                    io.sockets.emit('updateListUsers', {
-                        username: connectedUsers[k].username,
-                        numUsers: numUsers,
-                        id: connectedUsers[k].id
-                    });
-                }
-
-                // echo globally (all clients) that a person has connected
-                // Envoi de la letiable $userConnected pour la liste
-                socket.broadcast.emit('user joined', {
-                    username: socket.username,
-                    numUsers: numUsers,
-                    id: connectedUsers[username].id
-                });
-            });
-
-            // when the client emits 'typing', we broadcast it to others
-            socket.on('typing', function () {
-                socket.broadcast.emit('typing', {
-                    username: socket.username
-                });
-            });
-
-            // when the client emits 'stop typing', we broadcast it to others
-            socket.on('stop typing', function () {
-                socket.broadcast.emit('stop typing', {
-                    username: socket.username
-                });
-            });
-
-            // when the user disconnects.. perform this
-            socket.on('disconnect', function () {
-                if (addedUser) {
-                    --numUsers;
-                    delete connectedUsers[socket.username];
-
-                    io.sockets.emit('clear user list');
-                    for (k in connectedUsers) {
-                        let row = connectedUsers[k];
-
-                        io.sockets.emit('updateListUsers', {
-                            username: connectedUsers[k].username,
-                            numUsers: numUsers,
-                            id: connectedUsers[k].id
-                        });
-                    }
-
-                    // echo globally that this client has left
-                    socket.broadcast.emit('user left', {
-                        username: socket.username,
-                        numUsers: numUsers
-                    });
-                }
-            });
-        })
-    })
-
-
+        });
+    });
 }
+
 module.exports = initIndex;
