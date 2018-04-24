@@ -3,13 +3,18 @@
  */
 function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
+    let users = [];
+
+
     app.get('/', function (req, res) {
         if (!req.session.connected) return res.render('users/login', {
             message: 'Bienvenue'
         });
         return res.render('index', {
             message: 'Bienvenue',
-            account_type: req.session.account_type
+            image: req.session.img_url,
+            username: req.session.username,
+            mail: req.session.mail_users
         });
     });
 
@@ -17,7 +22,8 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     app.get('/login', function (req, res) {
         if (req.session.connected) return res.redirect('/');
         return res.render('users/login', {
-            message: 'Bienvenue'
+            message: 'Bienvenue',
+            info: 'Connexion en cours'
         });
 
     });
@@ -33,8 +39,10 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
             if (result.length != 0) {
                 req.session.connected = true;
                 req.session.id_user = result[0].id_user;
+                req.session.mail_users = result[0].mail_users;
                 req.session.username = username;
                 req.session.account_type = result[0].role;
+                req.session.img_url = result[0].img_url;
 
 
                 return res.send({
@@ -54,10 +62,18 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
             message: 'Bienvenue'
         });
 
-        io.sockets.emit('remove user', {
-            username: req.session.username,
-            id_user: req.session.id_user
-        });
+
+
+        let userCon = users.find(userInfo => userInfo.id_user === req.session.id_user);
+
+        if (userCon) {
+            users.splice(users.indexOf({
+                username: req.session.username,
+                id_user: req.session.id_user
+            }), 1);
+
+            io.sockets.emit('remove user', users);
+        }
 
         req.session.destroy(function (err) {
             if (err) throw err;
@@ -120,19 +136,28 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         return res.render('worldChat', {
             message: "hello",
             username: req.session.username,
-            id_user: req.session.id_user
-
+            id_user: req.session.id_user,
+            image: req.session.img_url
         });
 
     });
 
     app.get('/worldchat/getMessages', function (req, res) {
-        let search = 'SELECT * FROM messages m, users u WHERE m.id_user=u.id_user LIMIT 30';
+        let search = 'SELECT *, u.img_url FROM messages m, users u WHERE m.id_user=u.id_user LIMIT 30';
 
-        io.sockets.emit('add user', {
-            username: req.session.username,
-            id_user: req.session.id_user
-        });
+        let userCon = users.find(userInfo => userInfo.id_user === req.session.id_user);
+
+        if (!userCon) {
+            users.push({
+                username: req.session.username,
+                id_user: req.session.id_user,
+                img_url: req.session.img_url
+            });
+
+            io.sockets.emit('add user', users);
+        } else {
+            io.sockets.emit('add user', users);
+        }
 
         con.query(search, function (err, result, fields) {
             if (err) throw err;
@@ -141,13 +166,15 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
                 let date;
 
                 for (let i = 0; i < result.length; i++) {
-
                     date = moment(result[i].created_at).format('D MMM YY HH:mm');
+
                     messages.push({
                         username: result[i].username,
                         message: result[i].message,
                         created_at: date,
-                        id_user: result[i].id_user
+                        id_user: result[i].id_user,
+                        id_message: result[i].id_message,
+                        img_url: result[i].img_url
                     });
                 }
 
@@ -164,7 +191,6 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         let message = req.body.message;
         let id_user = req.session.id_user;
 
-        console.log(id_user);
 
         let search = 'INSERT INTO messages(id_user, message, created_at) VALUES(?,?,NOW())';
         con.query(search, [id_user, message], function (err, result, fields) {
@@ -172,9 +198,11 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
             io.sockets.emit('echo', {
                 message: message,
+                id_message: result.insertId,
                 username: req.session.username,
                 created_at: moment().format('D MMM YY HH:mm'),
-                id_user: id_user
+                id_user: id_user,
+                img_url: req.session.img_url
             });
 
             return res.send({
@@ -183,6 +211,23 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
             });
         });
     });
+
+
+    app.get('/profil', function (req, res) {
+
+        if (!req.session.connected) return res.render('users/login', {
+            message: 'Bienvenue'
+        });
+
+
+        return res.render('users/profil', {
+            message: 'Profil',
+            image: req.session.img_url,
+            username: req.session.username,
+            mail: req.session.mail_users
+        });
+    })
+
 }
 
 module.exports = initIndex;

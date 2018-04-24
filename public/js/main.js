@@ -1,5 +1,5 @@
 // initialisation de angular
-let app = angular.module("myApp", []);
+let app = angular.module("myApp", ['luegg.directives']);
 
 app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
