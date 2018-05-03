@@ -8,9 +8,10 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
     app.get('/', function (req, res) {
         if (!req.session.connected) return res.render('users/login', {
-            message: 'Bienvenue'
+            title: 'Connexion'
         });
         return res.render('index', {
+            title: 'Accueil',
             message: 'Bienvenue',
             image: req.session.img_url,
             username: req.session.username,
@@ -22,7 +23,8 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     app.get('/login', function (req, res) {
         if (req.session.connected) return res.redirect('/');
         return res.render('users/login', {
-            message: 'Bienvenue',
+            title: 'Login',
+            message: 'Connectez-vous',
             info: 'Connexion en cours'
         });
 
@@ -59,7 +61,7 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     // déconnexion
     app.get('/logout', function (req, res) {
         if (!req.session.connected) return res.render('users/login', {
-            message: 'Bienvenue'
+            message: 'Connectez-vous'
         });
 
 
@@ -216,6 +218,7 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     app.get('/profil', function (req, res) {
 
         if (!req.session.connected) return res.render('users/login', {
+            title: 'Profil',
             message: 'Bienvenue'
         });
 

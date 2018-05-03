@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Anton');
 
+
+/* .profil{
+    
+} */
 
 /* TOP NAV */
 .user-row {
@@ -39,9 +44,9 @@
 
 .infoUser{
     position: relative;
-    top: -20.8rem;
+    top: -21rem;
     right: -9rem;
-    height: 9rem;
+    height: 9.2rem;
     width: 13rem;
     padding: 2rem;
     background: grey;
@@ -55,10 +60,16 @@
 }
 
 
-.welcome{
+.welcome-profil{
     text-align: center;
     position: relative;
-    top: 11rem;
+    left: -1.6rem;
+    top: 0.3rem;
+}
+
+.message-profil{
+    color: #d1d1d1;
+    font-size: 6.9rem;
 }
 
 .img-user{
@@ -66,6 +77,7 @@
     height: auto;
     position: relative;
     top: -11.8rem;
+    left: 0rem;
 }
 
 .form-profil{
@@ -89,10 +101,10 @@
 
 .profil{
     position: relative;
-    top: 17rem;
-    left: 42rem;
-    width: 31rem;
-    height: 43rem;
+    top: 2rem;
+    left: 12rem;
+    width: 70rem;
+    height: 57rem;
     background-color: grey;
 }
 
@@ -104,9 +116,8 @@
 
 .img-profil {
     position: relative;
-    left: 6rem;
-    top: 3rem;
-
+    left: 8.4rem;
+    top: -5rem;
 }
 
 .username-profil {
