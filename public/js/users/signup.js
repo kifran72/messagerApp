@@ -17,7 +17,7 @@ app.controller("signup", function ($scope, $http, $window) {
             $scope.passwordTest = "";
             return $scope.message = 'Les mots de passe entrés ne sont pas identiques.';
         }else{
-            $http.post("http://localhost:3000/signup", {
+            $http.post("/signup", {
                 mail: mail,
                 username: username,
                 password: password,

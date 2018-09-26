@@ -11,7 +11,7 @@ app.controller("loginUser", function ($scope, $http, $window) {
 
         console.log(username);
         console.log(password);
-        $http.post("http://localhost:3000/login", {
+        $http.post("/login", {
             username: username,
             password: password
         }).then(function (rep) {
