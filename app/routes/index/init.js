@@ -49,7 +49,7 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
                 return res.send({
                     username: username,
-                    success: true,
+                    success: true
                 })
             }
             return res.send({
@@ -99,13 +99,11 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         let password = req.body.password;
         let passwordTest = req.body.passwordTest;
         let account_type = 0;
-        let img_url = 0;
-
-        console.log(mail);
+        let img_url = "https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png";
 
         if (password == passwordTest) {
-            let search = 'SELECT username FROM users WHERE username = ?';
-            con.query(search, [username], function (err, result, fields) {
+            let search = 'SELECT username, mail_users FROM users WHERE username = ? AND mail_users = ?';
+            con.query(search, [username, mail], function (err, result, fields) {
                 if (err) throw err;
                 if (result.length == 0) {
                     let sql = 'INSERT INTO users(username, mail_users, password, account_type, img_url) VALUES(?,?,?,?,?)';
@@ -115,6 +113,7 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
                         return res.send({
                             username: username,
+                            image: img_url,
                             success: true,
                             message: "Utilisateur crée !"
                         });

@@ -6,7 +6,7 @@ app.controller("signup", function ($scope, $http, $window) {
     let mail, username, password, passwordTest;
 
     $scope.signup = function () {
-
+        
         mail = $scope.mail;
         username = $scope.username;
         password = $scope.password;
@@ -16,17 +16,16 @@ app.controller("signup", function ($scope, $http, $window) {
             $scope.password = "";
             $scope.passwordTest = "";
             return $scope.message = 'Les mots de passe entrés ne sont pas identiques.';
+        }else{
+            $http.post("http://localhost:3000/signup", {
+                mail: mail,
+                username: username,
+                password: password,
+                passwordTest: passwordTest
+            }).then(function Success(reponse) {
+                $window.location.href = '/login';
+                return console.log(reponse.data);
+            }).catch(err => console.log(err));
         }
-
-        $http.post("http://localhost:3000/signup", {
-            mail: mail,
-            username: username,
-            password: password,
-            passwordTest: passwordTest
-        }).then(function Success(reponse) {
-            $window.location.href = '/login';
-            return console.log(reponse.data);
-        }).catch(err => console.log(err));
     }
-
 });
