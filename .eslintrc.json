@@ -1,0 +1,12 @@
+{
+    "extends": "google",
+    "env": {
+        "es6": true
+    },
+    "rules": {
+        "no-unused-vars": "warn",
+        "linebreak-style": "off",
+        "max-len": "off",
+        "new-cap": "off"
+    }
+}

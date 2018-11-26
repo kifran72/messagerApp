@@ -60,8 +60,8 @@
 .welcome-profil{
     text-align: center;
     position: relative;
-    left: -1.6rem;
     top: -12.7rem;
+    width: 100%;
 }
 
 .message-profil{
@@ -99,25 +99,43 @@
 .profil{
     position: relative;
     top: 16rem;
-    left: 2rem;
-    width: 100%;
+    left: 37rem;
+    width: 41rem;
     height: 57rem;
     background-color: grey;
 }
 
 .infoProfil {
     position: relative;
-    top: -21rem;
-    left: 36rem;
+    top: 4rem;
+    left: 4rem;
+    width: 33rem;
+    height: 14rem;
 }
 
 .img-profil {
     position: relative;
-    left: 3.4rem;
-    top: -5rem;
+    left: 9.4rem;
+    top: -6rem;
 }
 
 .username-profil {
     position: relative;
     top: 4rem;  
+}
+
+
+.profil input{
+    position: relative;
+    bottom: -11rem;
+    left: -16.3rem;
+}
+
+
+
+
+.selectfile {
+    position: relative;
+    top: 7rem;
+    right: 6.5rem;
 }

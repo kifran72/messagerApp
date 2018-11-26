@@ -46,7 +46,6 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
                 req.session.account_type = result[0].role;
                 req.session.img_url = result[0].img_url;
 
-
                 return res.send({
                     username: username,
                     success: true
@@ -63,8 +62,6 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         if (!req.session.connected) return res.render('users/login', {
             message: 'Connectez-vous'
         });
-
-
 
         let userCon = users.find(userInfo => userInfo.id_user === req.session.id_user);
 
@@ -216,10 +213,10 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
 
     app.get('/profil', function (req, res) {
 
-        if (!req.session.connected) return res.render('users/login', {
-            title: 'Profil',
-            message: 'Bienvenue'
-        });
+        // if (!req.session.connected) return res.render('users/login', {
+        //     title: 'Profil',
+        //     message: 'Bienvenue'
+        // });
 
 
         return res.render('users/profil', {
@@ -229,6 +226,10 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
             mail: req.session.mail_users
         });
     })
+
+    // app.get('/getImage', function (req, res) {
+    //    console.log(req.body)
+    // });
 
 }
 

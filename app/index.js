@@ -6,14 +6,14 @@ let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let twig = require('twig');
 let bodyParser = require('body-parser');
+let formidable = require('formidable');
 let session = require('express-session');
-let cookieParser = require('cookie-parser');
 let mysql = require('mysql');
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "messengerapp"
+    database: "messagerapp"
 });
 
 con.connect(function (err) {

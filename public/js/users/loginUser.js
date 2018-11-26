@@ -8,9 +8,7 @@ app.controller("loginUser", function ($scope, $http, $window) {
 
         username = $scope.username;
         password = $scope.password;
-
-        console.log(username);
-        console.log(password);
+        
         $http.post("/login", {
             username: username,
             password: password
