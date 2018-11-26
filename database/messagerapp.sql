@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 14 avr. 2018 à 11:04
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  lun. 26 nov. 2018 à 22:28
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE IF NOT EXISTS `images` (
+  `id_image` int(50) NOT NULL AUTO_INCREMENT,
+  `URL` text NOT NULL,
+  PRIMARY KEY (`id_image`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `messages`
 --
 
@@ -36,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id_message`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `messages`
@@ -50,7 +63,11 @@ INSERT INTO `messages` (`id_message`, `id_user`, `message`, `created_at`) VALUES
 (5, 4, 'Salut !', '2018-04-13 22:11:52'),
 (6, 6, 'hey boys', '2018-04-13 22:14:45'),
 (7, 1, 'lol', '2018-04-13 22:16:46'),
-(8, 6, 'qsdqsd', '2018-04-13 22:16:49');
+(8, 6, 'qsdqsd', '2018-04-13 22:16:49'),
+(9, 6, 'hello boy', '2018-11-26 21:55:29'),
+(10, 7, 'ça va ?', '2018-11-26 21:55:32'),
+(11, 6, 'Ouiiiiiii', '2018-11-26 21:55:38'),
+(12, 7, 'hahahahahahahhahahah', '2018-11-26 21:55:43');
 
 -- --------------------------------------------------------
 
@@ -65,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mail_users` varchar(100) NOT NULL,
   `password` varchar(30) NOT NULL,
   `account_type` int(11) NOT NULL,
-  `img_url` varchar(50) NOT NULL,
+  `img_url` text NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
@@ -77,7 +94,8 @@ INSERT INTO `users` (`id_user`, `username`, `mail_users`, `password`, `account_t
 (1, 'kifran', 'rizzon.charles@gmail.com', 'just4service', 0, '0'),
 (4, 'sdfsdf', 'sdfsd', 'aze', 0, '0'),
 (5, 'aze', 'aze', 'aze', 0, '0'),
-(6, 'dianophe', 'rizzon.charles@gmail.com', 'toor', 0, '0');
+(6, 'dianophe', 'rizzon.charles@gmail.com', 'toor', 0, '0'),
+(7, 'kifran', 'kifran', 'toor', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png');
 
 --
 -- Contraintes pour les tables déchargées
