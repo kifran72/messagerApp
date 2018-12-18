@@ -1,12 +1,11 @@
-module.exports = io => {
+module.exports = (io) => {
+  io.on('connection', function(socket) {
+    console.log('user connected');
+  });
 
-    io.on('connection', function (socket) {
-
-    });
-
-    io.on('disconnect', function (socket) {
-        console.log('user disconnected');
-    });
-}
+  io.on('disconnect', function(socket) {
+    console.log('user disconnected');
+  });
+};
 
 

@@ -1,3 +1,5 @@
+
+
 canvas {
     z-index: 0;
     position: absolute;
@@ -103,7 +105,7 @@ p {
     width: 30%;
 }
 
-.alert {
+/* .alert {
     position: relative;
 }
 
@@ -116,4 +118,8 @@ p {
 
 .alert .fa {
     margin-right: .3em;
+} */
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
 }

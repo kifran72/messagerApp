@@ -1,4 +1,50 @@
 .signup {
     position: relative;
-    top: 10rem;
+    top: 19rem;
+}
+
+.btn-signup{
+    position: relative;
+    top: 3rem;
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
+    width: 18rem;
+}
+
+#failSignup{
+    position: relative;
+    bottom: 58rem;
+}
+
+#failSignup.ng-enter,#failSignup.ng-leave{
+    -webkit-transition: opacity ease-in-out 1s;
+    transition: opacity ease-in-out 1s;   
+}
+
+#failSignup.ng-enter,#failSignup.ng-leave.ng-leave-active{
+    opacity: 0;
+}
+
+#failSignup.ng-leave,#failSignup.ng-enter.ng-enter-active{
+    opacity: 1;
+}
+
+
+#notSame{
+    position: relative;
+    bottom: 58rem;
+}
+
+#notSame.ng-enter,#notSame.ng-leave{
+    -webkit-transition: opacity ease-in-out 1s;
+    transition: opacity ease-in-out 1s;   
+}
+
+#notSame.ng-enter,#notSame.ng-leave.ng-leave-active{
+    opacity: 0;
+}
+
+#notSame.ng-leave,#notSame.ng-enter.ng-enter-active{
+    opacity: 1;
 }

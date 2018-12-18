@@ -6,19 +6,18 @@ let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let twig = require('twig');
 let bodyParser = require('body-parser');
-let formidable = require('formidable');
 let session = require('express-session');
 let mysql = require('mysql');
 let con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "messagerapp"
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'messagerapp',
 });
 
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("BDD Connected!");
+con.connect(function(err) {
+  if (err) throw err;
+  console.log('BDD Connected!');
 });
 require('../config/socket')(io);
 
@@ -29,12 +28,12 @@ app.set('views', 'views');
 app.set('view engine', 'html');
 app.engine('html', twig.__express);
 app.set('twig options', {
-    strict_variables: false,
+  strict_variables: false,
 });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
-    extended: false,
+  extended: false,
 }));
 
 // parse application/json
@@ -48,23 +47,22 @@ app.use('/assets', express.static('public'));
 
 // initialise une session
 app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 30 * 60000
-    }
-}))
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 30 * 60000,
+  },
+}));
 
 
 // ROUTES
 require('./routes/index').init(app, session, con, io, http, connectedUsers, moment);
 
 // ALL OTHER ROUTES REDIRECT TO '/'
-app.get('*', function (req, res) {
-    res.redirect('/');
+app.get('*', function(req, res) {
+  res.redirect('/');
 });
-
 
 
 module.exports = http;

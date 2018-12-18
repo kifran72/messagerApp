@@ -1,5 +1,5 @@
 // initialisation de angular
-const app = angular.module('messengerApp', ['luegg.directives']);
+const app = angular.module('messengerApp', ['luegg.directives', 'ngAnimate']);
 
 app.config(['$qProvider', function($qProvider) {
   $qProvider.errorOnUnhandledRejections(false);
