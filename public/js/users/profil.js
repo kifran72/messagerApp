@@ -1,10 +1,13 @@
-app.controller("getfile", function ($scope, $http, $window) {
 
-    $scope.file;
-    let file;
 
-    $scope.upload = function () {
-        file = $scope.file;
-        console.log(file);
-    }
+app.controller('profil', function($scope, $http) {
+  $http.get('/profil', (req, res) => {
+    res.sendFile(__dirname + '/img');
+  });
+
+  // It's very crucial that the file name matches the name attribute in your html
+  $http.post('/getFile', upload.single('file-to-upload'), (req, res) => {
+    res.redirect('/');
+  });
 });
+

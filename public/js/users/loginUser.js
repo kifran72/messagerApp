@@ -3,6 +3,9 @@ app.controller('loginUser', ($scope, $http, $window, $timeout) => {
   $scope.connect = false;
   $scope.incorrect = false;
   $scope.username, $scope.password;
+  $scope.alert = true;
+  $scope.message = '';
+  $scope.type = '';
   let username; let password;
 
   // Création de la fonction loginUser pour permmettre l'envoie du username et password par la route crée "/login" et si la reponse de la route est true rediriger vers "/" sinon message d'erreur
@@ -30,4 +33,12 @@ app.controller('loginUser', ($scope, $http, $window, $timeout) => {
       }
     });
   };
+
+  let getAlert = (type, message) => {
+    $scope.message = message;
+    $scope.type = type;
+    $('.alert').css('display', 'block');
+  };
+
+  getAlert('danger', 'coucou');
 });

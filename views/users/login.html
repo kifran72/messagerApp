@@ -3,6 +3,12 @@
 
 <div class="container" class="login">
     <canvas id="c"></canvas>
+    <div class="alert alert-{[{type}]} fade in" style="display: none">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {[{message}]}
+    </div>
+
+    
     <div class="container login" ng-controller="loginUser">
         <p class="message-login">Connectez-vous</p>
         <div class="form-group loginGroup">
@@ -27,9 +33,5 @@
           </div>
     </div>
 </div>
-
-<script>
-</script>
-
 
 {% include 'templates/footer.html' %}

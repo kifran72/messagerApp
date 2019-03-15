@@ -31,7 +31,7 @@ app.controller('signup', function($scope, $http, $window, $timeout) {
         password: password,
         passwordTest: passwordTest,
       }).then((rep) => {
-        // $window.location.href = '/login';
+        $window.location.href = '/login';
         return console.log(rep.data);
       }).catch((err) => console.log(err));
     }

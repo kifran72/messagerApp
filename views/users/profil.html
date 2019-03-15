@@ -11,16 +11,20 @@
             <span class="hamb-bottom"></span>
         </button>
         <!-- Content -->
-        <div class="container" ng-controller='getfile'>
+        <div class="container">
             <canvas id="c"></canvas>
-            <div class="profil">
+            <div class="profil" ng-controller='profil'>
+
+                
+        <form action="/getFile" enctype="multipart/form-data" method="post">
+            <!-- <input type="file" name="file-to-upload">
+            <input type="submit" value="Upload"> -->
+          </form>
                 <div class="welcome-profil">
                     <h1 class="message-profil">{{ message }}</h1>
                 </div>
                 <img class="img-profil" src="{{ image }}" alt="image">
-                <button class="selectfile" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-                accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">Select File</button>                
-                <input type="submit" ng-click="upload()">
+                
                 <div class="infoProfil">
                     <div class="mail-profil">
                         <label for="mail-profil">Addresse mail</label>

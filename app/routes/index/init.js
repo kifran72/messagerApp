@@ -8,11 +8,11 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
   app.get('/', function(req, res) {
     if (!req.session.connected) {
       return res.render('users/login', {
-        title: 'Connexion',
+        titles: 'Connexion',
       });
     }
     return res.render('index', {
-      title: 'Accueil',
+      titles: 'Accueil',
       message: 'Bienvenue',
       image: req.session.img_url,
       username: req.session.username,
@@ -24,9 +24,8 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
   app.get('/login', function(req, res) {
     if (req.session.connected) return res.redirect('/');
     return res.render('users/login', {
-      title: 'Login',
-      message: 'Connectez-vous',
-      info: 'Connexion en cours',
+      titles: 'Login',
+      info: 'Connectez-vous',
     });
   });
 
@@ -105,8 +104,8 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
         con.query(sql, [username, mail, password, accountType, imgUrl], function(err, result) {
           if (err) throw err;
           return res.send({
-            username: username,
-            image: img_url,
+            username: result.username,
+            image: result.img_url,
             success: true,
             message: 'Utilisateur crée !',
           });
@@ -199,14 +198,13 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     });
   });
 
-
   app.get('/profil', function(req, res) {
-    // if (!req.session.connected) return res.render('users/login', {
-    //     title: 'Profil',
-    //     message: 'Bienvenue'
-    // });
-
-
+    if (!req.session.connected) {
+      return res.render('users/login', {
+        titles: 'Profil',
+        message: 'Bienvenue',
+      });
+    }
     return res.render('users/profil', {
       message: 'Profil',
       image: req.session.img_url,
@@ -215,9 +213,9 @@ function initIndex(app, session, con, io, server, connectedUsers, moment) {
     });
   });
 
-  // app.get('/getImage', function (req, res) {
-  //    console.log(req.body)
-  // });
+  app.post('/getImage', (req, res) => {
+    console.log(req.body.image);
+  });
 }
 
 module.exports = initIndex;

@@ -78,3 +78,9 @@ form{
 #incorrect.ng-leave,#incorrect.ng-enter.ng-enter-active{
     opacity: 1;
 }
+
+
+.alert {
+    position: relative;
+    top: 5rem;
+}

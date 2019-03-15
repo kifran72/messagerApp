@@ -113,8 +113,8 @@
 
 .img-profil {
     position: relative;
-    left: 9.4rem;
-    top: -6rem;
+    left: 10.4rem;
+    top: -2rem;
 }
 
 .username-profil {
@@ -123,19 +123,19 @@
 }
 
 
-.profil input{
+/* .profil input{
     color: black;
     position: relative;
     bottom: -7rem;
     left: -10.3rem;
 }
+ */
 
 
-
-
+/* 
 .selectfile {
     color: black;
     position: relative;
     top: 7rem;
     left: -11rem;
-}
+} */
