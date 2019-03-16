@@ -3,34 +3,32 @@
 
 <div class="container" class="login">
     <canvas id="c"></canvas>
-    <div class="alert alert-{[{type}]} fade in" style="display: none">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        {[{message}]}
-    </div>
-
-    
     <div class="container login" ng-controller="loginUser">
         <p class="message-login">Connectez-vous</p>
         <div class="form-group loginGroup">
             <label for="Email">Identifiant</label>
             <input type="text" class="form-control" id="Email" name="username" placeholder="Entrez votre email ou speudo"
-            ng-model="username" my-enter="loginUser()">
+                ng-model="username" my-enter="loginUser()">
         </div>
         <div class="form-group">
             <label for="pass">Mot de passe</label>
-            <input type="password" class="form-control" id="pass" name="password" placeholder="Entrez votre mot de passe" ng-model="password"
-                my-enter="loginUser()">
+            <input type="password" class="form-control" id="pass" name="password" placeholder="Entrez votre mot de passe"
+                ng-model="password" my-enter="loginUser()">
         </div>
         <div class="signin">
             <a href="/signup" class="signin"> Pas encore inscrit?</a>
         </div>
         <button type="submit" class="btn btn-success" ng-click="loginUser()">Connexion</button>
-          <div class="alert alert-danger" id="failConnect" ng-if="connect" ng-cloak>
-            <strong>Erreur !</strong> Tous les champs doivent être remplis.
-          </div>
-          <div class="alert alert-danger" id="incorrect" ng-if="incorrect" ng-cloak>
-            <strong>Erreur !</strong> Le nom d'utilisateur ou le mot de passe est incorrect.
-          </div>
+        <div class="wrap" ng-if="spinner">
+            <div class="spinner-wrap">
+                <div class="spinner">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-{[{type}]} alert-login" id="alert" ng-if="alert" ng-cloak>
+            <strong>{[{strongMessage}]}</strong> {[{message}]}
+        </div>
     </div>
 </div>
 

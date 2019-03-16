@@ -284,7 +284,7 @@ background-color:#eeeeee;
 .username-message-left {
     position: absolute;
     color: black;
-    top: -1.6rem;
+    top: -2.6rem;
     margin-top: 3rem;
     left: 2.0rem;
 }
@@ -293,7 +293,7 @@ background-color:#eeeeee;
     color: black;
     margin-top: 1rem;
     right: 2.1rem;
-    top: 0.3rem;
+    top: -0.6rem;
 }
 
 

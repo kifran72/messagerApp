@@ -106,13 +106,15 @@
                                             </li>
                                         </ul> -->
                                     </div>
-                                    <div class="lv-body" id="ms-scrollbar" style="overflow:scroll; overflow-x: hidden; height: 29.7rem;" scroll-glue="glued">
+                                    <div class="lv-body" id="ms-scrollbar" style="overflow:scroll; overflow-x: hidden; height: 29.7rem;"
+                                        scroll-glue="glued">
                                         <div ng-repeat="msg in messages | orderBy: '-id_message':true" ng-cloak>
                                             <div ng-if="!msg.myself">
                                                 <div class="lv-item media">
                                                     <div class="media-body">
                                                         <span class="username-message-left">
-                                                            <a href="/profil" class="username-chat-left">{[{ msg.username }]}</a>
+                                                            <a href="/profil" class="username-chat-left">{[{
+                                                                msg.username }]}</a>
                                                             <div class="lv-avatar pull-left">
                                                                 <img src="{[{ msg.img_url}]}" alt="">
                                                             </div>
@@ -121,7 +123,8 @@
                                                             {[{ msg.message }]}
                                                         </div>
                                                         <small class="ms-date">
-                                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{ msg.created_at }]}</small>
+                                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{
+                                                            msg.created_at }]}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +134,8 @@
 
                                                     <div class="media-body">
                                                         <span class="username-message-right">
-                                                            <a href="/profil" class="username-chat-right">{[{ msg.username }]}</a>
+                                                            <a href="/profil" class="username-chat-right">{[{
+                                                                msg.username }]}</a>
                                                             <div class="lv-avatar pull-right">
                                                                 <img src="{[{ msg.img_url}]}" alt="">
                                                             </div>
@@ -140,7 +144,8 @@
                                                             {[{ msg.message }]}
                                                         </div>
                                                         <small class="ms-date">
-                                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{ msg.created_at }]}</small>
+                                                            <span class="glyphicon glyphicon-time"></span>&nbsp; {[{
+                                                            msg.created_at }]}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +154,8 @@
 
                                     <div class="clearfix"></div>
                                     <div class="lv-footer ms-reply">
-                                        <textarea rows="10" placeholder="Ecrivez votre message..." my-enter="sendMsg(); glued = true;" ng-model="message"></textarea>
+                                        <textarea rows="10" placeholder="Ecrivez votre message..." my-enter="sendMsg(); glued = true;"
+                                            ng-model="message"></textarea>
                                         <button class="" ng-click="sendMsg(); glued = true;">
                                             <span class="glyphicon glyphicon-send send"></span>
                                         </button>

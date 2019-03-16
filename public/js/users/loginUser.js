@@ -1,15 +1,32 @@
 
 app.controller('loginUser', ($scope, $http, $window, $timeout) => {
+  let username;
+  let password;
   $scope.connect = false;
   $scope.incorrect = false;
   $scope.username, $scope.password;
-  $scope.alert = true;
+  $scope.strongMessage = '';
   $scope.message = '';
   $scope.type = '';
-  let username; let password;
+  $scope.alert = false;
+  $scope.spinner = false;
 
-  // Création de la fonction loginUser pour permmettre l'envoie du username et password par la route crée "/login" et si la reponse de la route est true rediriger vers "/" sinon message d'erreur
+
+  $scope.getAlert = (type, strongMessage, message) => {
+    $scope.type = type;
+    $scope.strongMessage = strongMessage;
+    $scope.message = message;
+    $scope.alert = true;
+    $timeout(() => {
+      $scope.alert = false;
+    }, 3000);
+  };
+
+
+  // Création de la fonction loginUser pour permmettre l'envoie du username et password par la route crée "/login" 
+  // et si la reponse de la route est true rediriger vers "/" sinon message d'erreur
   $scope.loginUser = () => {
+    console.log($scope.alert);
     username = $scope.username;
     password = $scope.password;
     $http.post('/login', {
@@ -17,28 +34,19 @@ app.controller('loginUser', ($scope, $http, $window, $timeout) => {
       password: password,
     }).then((rep) => {
       if (rep.data.success) {
-        $window.location.href = '/';
+        $scope.getAlert('success', 'Succes !', 'Connexion en cours...');
+        $scope.spinner = true;
+        $timeout(() => {
+          $scope.spinner = false;
+          $window.location.href = '/';
+        }, 3000);
       } else {
         if (username === undefined && password === undefined) {
-          $scope.connect = true;
-          $timeout(()=>{
-            $scope.connect = false;
-          }, 3000);
+          $scope.getAlert('warning', 'Erreur !', 'Tous les champs doivent être remplis')
         } else {
-          $scope.incorrect = true;
-          $timeout(()=>{
-            $scope.incorrect = false;
-          }, 3000);
+          $scope.getAlert('danger', 'Erreur !', 'Les informations entrées sont incorrects')
         }
       }
     });
   };
-
-  let getAlert = (type, message) => {
-    $scope.message = message;
-    $scope.type = type;
-    $('.alert').css('display', 'block');
-  };
-
-  getAlert('danger', 'coucou');
 });
