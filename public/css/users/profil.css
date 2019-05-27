@@ -112,12 +112,13 @@
 }
 
 .img-profil {
-    position: relative;
-    left: 10.4rem;
-    top: -2rem;
-}
-
-.username-profil {
+    position: relative; 
+    left: 10.4rem; 
+    top: -2rem; 
+    width: 23%; 
+} 
+ 
+.username-profil { 
     position: relative;
     top: 4rem;  
 }

@@ -39,10 +39,10 @@ app.controller('loginUser', ($scope, $http, $window, $timeout) => {
         $timeout(() => {
           $scope.spinner = false;
           $window.location.href = '/';
-        }, 3000);
+        }, 2000);
       } else {
         if (username === undefined && password === undefined) {
-          $scope.getAlert('warning', 'Erreur !', 'Tous les champs doivent être remplis')
+          $scope.getAlert('warning', 'Attention !', 'Tous les champs doivent être remplis')
         } else {
           $scope.getAlert('danger', 'Erreur !', 'Les informations entrées sont incorrects')
         }
