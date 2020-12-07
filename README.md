@@ -10,5 +10,8 @@ npm start
 
 login test 
 
-pseudo: test
-mot de passe: test
+pseudo: 
+test
+
+mot de passe: 
+test
