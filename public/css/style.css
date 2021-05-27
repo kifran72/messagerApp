@@ -376,10 +376,11 @@ html {
     z-index: 1;
 }
 
-.close-button {
+
+/* .close-button {
     display: none;
 }
 
 canvas {
     pointer-events: none;
-}
+} */

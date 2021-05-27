@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7deb1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : mar. 08 déc. 2020 à 15:58
--- Version du serveur :  10.3.24-MariaDB-2
--- Version de PHP : 7.4.11
+-- Hôte : 127.0.0.1:3306
+-- Généré le : jeu. 27 mai 2021 à 15:22
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,9 +27,11 @@ SET time_zone = "+00:00";
 -- Structure de la table `images`
 --
 
-CREATE TABLE `images` (
-  `id_image` int(50) NOT NULL,
-  `URL` text NOT NULL
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE IF NOT EXISTS `images` (
+  `id_image` int(50) NOT NULL AUTO_INCREMENT,
+  `URL` text NOT NULL,
+  PRIMARY KEY (`id_image`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -39,20 +40,26 @@ CREATE TABLE `images` (
 -- Structure de la table `messages`
 --
 
-CREATE TABLE `messages` (
-  `id_message` int(11) NOT NULL,
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id_message` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `message` text NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id_message`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `messages`
 --
 
 INSERT INTO `messages` (`id_message`, `id_user`, `message`, `created_at`) VALUES
-(13, 8, 'salut', '2020-12-07 14:41:56'),
-(14, 7, 'coucou', '2020-12-07 14:41:59');
+(15, 8, 'dfsdfsdf', '2021-05-27 17:12:10'),
+(16, 9, 'heelo', '2021-05-27 17:13:07'),
+(17, 8, 'salut toi', '2021-05-27 17:13:11'),
+(18, 9, 'ça fais longtemps', '2021-05-27 17:13:17'),
+(19, 8, 'oh wow', '2021-05-27 17:13:22');
 
 -- --------------------------------------------------------
 
@@ -60,67 +67,24 @@ INSERT INTO `messages` (`id_message`, `id_user`, `message`, `created_at`) VALUES
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
-  `id_user` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
   `mail_users` varchar(100) NOT NULL,
   `password` varchar(30) NOT NULL,
   `account_type` int(11) NOT NULL,
-  `img_url` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `img_url` text NOT NULL,
+  PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `mail_users`, `password`, `account_type`, `img_url`) VALUES
-(7, 'kifran', 'kifran', 'toor', 0, '/imgProfils/kifran.jpg'),
-(8, 'test', 'test', 'test', 0, '/imgProfils/41457306_2086798618005925_1912893401875873792_o.jpg.jpg');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `images`
---
-ALTER TABLE `images`
-  ADD PRIMARY KEY (`id_image`);
-
---
--- Index pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id_message`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `images`
---
-ALTER TABLE `images`
-  MODIFY `id_image` int(50) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+(8, 'test', 'test', 'test', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png'),
+(9, 'test2', 'test2', 'test2', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png');
 
 --
 -- Contraintes pour les tables déchargées
