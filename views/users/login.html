@@ -5,15 +5,15 @@
     <canvas id="c"></canvas>
     <div class="container login" ng-controller="loginUser">
         <p class="message-login">Connectez-vous</p>
+        <p>Login test</p><br><br>
+        <pre>Pseudo: test <br>mot de passe: test</pre>
         <div class="form-group loginGroup">
             <label for="Email">Identifiant</label>
-            <input type="text" class="form-control" id="Email" name="username" placeholder="Entrez votre email ou speudo"
-                ng-model="username" my-enter="loginUser()">
+            <input type="text" class="form-control" id="Email" name="username" placeholder="Entrez votre email ou speudo" ng-model="username" my-enter="loginUser()">
         </div>
         <div class="form-group">
             <label for="pass">Mot de passe</label>
-            <input type="password" class="form-control" id="pass" name="password" placeholder="Entrez votre mot de passe"
-                ng-model="password" my-enter="loginUser()">
+            <input type="password" class="form-control" id="pass" name="password" placeholder="Entrez votre mot de passe" ng-model="password" my-enter="loginUser()">
         </div>
         <div class="signin">
             <a href="/signup" class="signin"> Pas encore inscrit?</a>

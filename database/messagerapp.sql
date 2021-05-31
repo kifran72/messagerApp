@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 27 mai 2021 à 15:22
+-- Généré le : lun. 31 mai 2021 à 20:27
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -48,18 +48,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id_message`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `messages`
---
-
-INSERT INTO `messages` (`id_message`, `id_user`, `message`, `created_at`) VALUES
-(15, 8, 'dfsdfsdf', '2021-05-27 17:12:10'),
-(16, 9, 'heelo', '2021-05-27 17:13:07'),
-(17, 8, 'salut toi', '2021-05-27 17:13:11'),
-(18, 9, 'ça fais longtemps', '2021-05-27 17:13:17'),
-(19, 8, 'oh wow', '2021-05-27 17:13:22');
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -76,15 +65,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `account_type` int(11) NOT NULL,
   `img_url` text NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `mail_users`, `password`, `account_type`, `img_url`) VALUES
-(8, 'test', 'test', 'test', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png'),
-(9, 'test2', 'test2', 'test2', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png');
+(8, 'test', 'test', 'test', 0, 'https://img-19.ccm2.net/nk1eHVlqfdoTvhQItQ2WE6Jbj70=/91a1e9868ec347bcb203ca1a63034cb6/ccm-ugc/efa5cf51c0711fafc61e73f90e05bc12-s-.png');
 
 --
 -- Contraintes pour les tables déchargées
